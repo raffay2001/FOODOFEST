@@ -1,9 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp, getApp, getApps } from "firebase/app"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore"
+import { getStorage } from "firebase/storage"
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAl0dYEc8CLozaQcN36b0LHI8No-VMbY4o",
   authDomain: "restaurantapp-8b570.firebaseapp.com",
@@ -14,5 +12,7 @@ const firebaseConfig = {
   appId: "1:376557735375:web:5cca4c0d033fa22c77d6ba",
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
+const app = getApps.length > 0 ? getApp() : initializeApp(firebaseConfig)
+const firestore = getFirestore(app)
+const storage = getStorage(app)
+export { app, firestore, storage }
