@@ -13,4 +13,4 @@ export const StateProvider = ({ reducer, initialState, children }) => {
 }
 
 // exporting all the info. with a custom hook.
-export const useStateValue = () => useContext(StateContext)
+export const useStateValue = () => useContext(StateContext) // --> [state, dispatch]

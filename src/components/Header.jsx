@@ -16,10 +16,13 @@ const Header = () => {
   const [{ user }, dispatch] = useStateValue()
   // handler for authentication
   const login = async () => {
-    const {
-      user: { refreshToken, providerData },
-    } = await signInWithPopup(firebaseAuth, provider)
-    dispatch({ type: actionType.SET_USER, user: providerData[0] })
+    if (!user) {
+      const {
+        user: { refreshToken, providerData },
+      } = await signInWithPopup(firebaseAuth, provider)
+      dispatch({ type: actionType.SET_USER, user: providerData[0] })
+      localStorage.setItem("user", JSON.stringify(providerData[0]))
+    }
   }
   return (
     <header className="z-50 w-screen p-6 px-16">
@@ -56,9 +59,9 @@ const Header = () => {
             <motion.img
               onClick={login}
               whileTap={{ scale: 0.8 }}
-              src={Aavatar}
+              src={user ? user.photoURL.split("=")[0] : Aavatar}
               alt="user-profile"
-              className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer"
+              className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
             />
           </div>
         </div>
