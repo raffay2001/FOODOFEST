@@ -20,3 +20,7 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.test-border {
+  @apply border border-solid border-black;
+}
