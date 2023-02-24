@@ -34,7 +34,7 @@ const Header = () => {
     dispatch({ type: actionType.SET_USER, user: null })
   }
   return (
-    <header className="z-50 w-screen p-3 px-4 md:p-3 md:px-16">
+    <header className="fixed z-50 w-screen p-3 px-4 md:p-3 md:px-16 backdrop-blur-sm">
       {/* For desktop and tablets  */}
       <div className="hidden md:flex w-full h-full items-center justify-between">
         {/* Logo and Brand Name */}
