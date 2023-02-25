@@ -5,13 +5,14 @@ import { CATEGORIES } from "../utils/constants"
 import Loader from "./Loader"
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { storage } from "../firebase.config"
+import { saveItem } from "../utils/firebaseFunctions"
 
 const CreateContainer = () => {
   // reactive state variables for controlled input components.
   const [title, setTitle] = useState("")
   const [calories, setCalories] = useState("")
   const [price, setPrice] = useState("")
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState("Select Category")
   const [imageAsset, setImageAsset] = useState(null)
   const [fields, setFields] = useState(false)
   const [alertStatus, setAlertStatus] = useState("danger")
@@ -68,6 +69,14 @@ const CreateContainer = () => {
       }, 4000)
     })
   }
+  // handler function for resetting all the states
+  const clearData = () => {
+    setTitle("")
+    setCategory("Select Category")
+    setImageAsset(null)
+    setCalories("")
+    setPrice("")
+  }
   // handler function for submitting the details to backend.
   const saveDetails = () => {
     setIsLoading(true)
@@ -90,6 +99,15 @@ const CreateContainer = () => {
           qty: 1,
           price: price,
         }
+        saveItem(data)
+        setIsLoading(false)
+        setFields(true)
+        setMsg("Data uploaded successfully ✅")
+        clearData()
+        setAlertStatus("success")
+        setTimeout(() => {
+          setFields(false)
+        }, 4000)
       }
     } catch (error) {
       console.log(error)
@@ -137,6 +155,7 @@ const CreateContainer = () => {
         <div className="w-full">
           <select
             onChange={(e) => setCategory(e.target.value)}
+            value={category}
             className="outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
           >
             <option value="other" className="bg-white">
