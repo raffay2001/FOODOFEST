@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 import { MdFastfood, MdCloudUpload, MdDelete, MdFoodBank, MdAttachMoney } from "react-icons/md"
 import { CATEGORIES } from "../utils/constants"
 import Loader from "./Loader"
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
+import { storage } from "../firebase.config"
 
 const CreateContainer = () => {
   // reactive state variables for controlled input components.
@@ -17,11 +19,89 @@ const CreateContainer = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   // handler function for uploading the image to firebase database.
-  const uploadImage = () => {}
+  const uploadImage = (e) => {
+    setIsLoading(true)
+    const imageFile = e.target.files[0]
+    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, imageFile)
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      },
+      (error) => {
+        console.log(error)
+        setFields(true)
+        setMsg("Error while uploading: Try Again 🙇.")
+        setAlertStatus("danger")
+        setTimeout(() => {
+          setFields(false)
+          setIsLoading(false)
+        }, 4000)
+      },
+      () => {
+        getDownloadURL(storageRef).then((downloadURL) => {
+          setImageAsset(downloadURL)
+          setIsLoading(false)
+          setFields(true)
+          setMsg("Image uploaded successfully ✅.")
+          setAlertStatus("success")
+          setTimeout(() => {
+            setFields(false)
+          }, 4000)
+        })
+      }
+    )
+  }
   // handler function for deleting the image from UI.
-  const deleteImage = () => {}
+  const deleteImage = () => {
+    setIsLoading(true)
+    const deleteRef = ref(storage, imageAsset)
+    deleteObject(deleteRef).then(() => {
+      setImageAsset(null)
+      setIsLoading(false)
+      setFields(true)
+      setMsg("Image deleted successfully ✅")
+      setAlertStatus("success")
+      setTimeout(() => {
+        setFields(false)
+      }, 4000)
+    })
+  }
   // handler function for submitting the details to backend.
-  const saveDetails = () => {}
+  const saveDetails = () => {
+    setIsLoading(true)
+    try {
+      if (!title || !calories || !imageAsset || !price || !category) {
+        setFields(true)
+        setMsg("Required fields cant be empty.")
+        setAlertStatus("danger")
+        setTimeout(() => {
+          setFields(false)
+          setIsLoading(false)
+        }, 4000)
+      } else {
+        const data = {
+          id: `${Date.now()}`,
+          title: title,
+          imageURL: imageAsset,
+          category: category,
+          calories: calories,
+          qty: 1,
+          price: price,
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      setFields(true)
+      setMsg("Error while uploading: Try Again 🙇.")
+      setAlertStatus("danger")
+      setTimeout(() => {
+        setFields(false)
+        setIsLoading(false)
+      }, 4000)
+    }
+  }
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
