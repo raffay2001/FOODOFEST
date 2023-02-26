@@ -15,7 +15,7 @@ const MainContainer = () => {
     <div className="w-full h-auto flex flex-col items-center justify-center">
       <HomeContainer />
       <section className="w-full my-6">
-        <div className="w-full flex items-center justify-between">
+        <div className="w-full flex-col flex md:flex-row items-center justify-between">
           <p className="text-2xl font-semibold capitalize relative before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all duration-100 ease-in-out">
             Our fresh & healthy fruits.
           </p>
@@ -23,14 +23,30 @@ const MainContainer = () => {
             <motion.div
               whileTap={{ scale: 0.75 }}
               className="w-8 h-8 rounded-lg bg-orange-400 hover:bg-orange-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
-              onClick={() => setScrollValue(-200)}
+              onClick={() =>
+                setScrollValue((prevScrollValue) => {
+                  if (scrollValue > -400) {
+                    return prevScrollValue - 200
+                  } else if (scrollValue === -400) {
+                    return 0
+                  }
+                })
+              }
             >
               <MdChevronLeft className="text-lg text-white" />
             </motion.div>
             <motion.div
               whileTap={{ scale: 0.75 }}
               className="w-8 h-8 rounded-lg bg-orange-400 hover:bg-orange-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
-              onClick={() => setScrollValue(200)}
+              onClick={() =>
+                setScrollValue((prevScrollValue) => {
+                  if (scrollValue < 400) {
+                    return prevScrollValue + 200
+                  } else if (scrollValue === 400) {
+                    return 0
+                  }
+                })
+              }
             >
               <MdChevronRight className="text-lg text-white" />
             </motion.div>
