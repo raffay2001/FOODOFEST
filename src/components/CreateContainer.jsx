@@ -6,6 +6,9 @@ import Loader from "./Loader"
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { storage } from "../firebase.config"
 import { saveItem } from "../utils/firebaseFunctions"
+import { getAllFoodItems } from "../utils/firebaseFunctions"
+import { useStateValue } from "../context/StateProvider"
+import { actionType } from "../context/reducer"
 
 const CreateContainer = () => {
   // reactive state variables for controlled input components.
@@ -18,6 +21,8 @@ const CreateContainer = () => {
   const [alertStatus, setAlertStatus] = useState("danger")
   const [msg, setMsg] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  // global state from reducer
+  const [{ foodItems }, dispatch] = useStateValue()
 
   // handler function for uploading the image to firebase database.
   const uploadImage = (e) => {
@@ -77,6 +82,12 @@ const CreateContainer = () => {
     setCalories("")
     setPrice("")
   }
+  // handler function for fetching data from firestore
+  const fetchData = async () => {
+    const data = await getAllFoodItems()
+    dispatch({ type: actionType.SET_FOOD_ITEMS, foodItems: data })
+  }
+
   // handler function for submitting the details to backend.
   const saveDetails = () => {
     setIsLoading(true)
@@ -108,6 +119,7 @@ const CreateContainer = () => {
         setTimeout(() => {
           setFields(false)
         }, 4000)
+        fetchData()
       }
     } catch (error) {
       console.log(error)
