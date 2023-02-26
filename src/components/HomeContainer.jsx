@@ -41,7 +41,7 @@ const HomeContainer = () => {
         <img
           src={HeroBg}
           alt="hero-bannerImg"
-          className="ml-auto h-400 w-full md:h-650 md:w-auto"
+          className="ml-auto h-100 w-full md:h-650 md:w-auto"
         />
         <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center py-32 md:py-4 gap-6 flex-wrap">
           {HERO_DATA.map((item) => (
