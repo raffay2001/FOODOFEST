@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import { MdShoppingBasket } from "react-icons/md"
 import { motion } from "framer-motion"
+import NotFound from "./img/NotFound.svg"
 
 const RowContainer = ({ flag, data, scrollValue }) => {
   const rowContainerRef = useRef()
@@ -12,23 +13,24 @@ const RowContainer = ({ flag, data, scrollValue }) => {
   return (
     <div
       ref={rowContainerRef}
-      className={`w-full my-6 flex items-center gap-3 scroll-smooth ${
+      className={`w-full my-6 flex items-center justify-center gap-3 scroll-smooth ${
         flag ? "overflow-x-scroll scrollbar-none" : "overflow-x-hidden flex-wrap"
       }`}
     >
-      {data &&
+      {data.length > 0 ? (
         data.map((item) => (
           <div
             key={item?.id}
-            className="w-275 min-w-[275px] h-[175px] md:min-w-[300px] md:w-300 bg-cardOverlay rounded-lg p-2 pr-6 backdrop-blur-lg my-12 hover:drop-shadow-lg flex flex-col items-center justify-between"
+            className="w-275 min-w-[275px] md:min-w-[300px] md:w-300 bg-cardOverlay rounded-lg p-2 pr-6 backdrop-blur-lg my-12 hover:drop-shadow-lg flex flex-col items-center justify-between"
           >
             <div className="w-full flex items-center justify-between">
-              <motion.img
-                whileHover={{ scale: 1.2 }}
-                src={item?.imageURL}
-                alt={item.title}
-                className="w-40 h-28 -mt-8 drop-shadow-2xl"
-              />
+              <motion.div whileHover={{ scale: 1.2 }} className="w-40 h-32 -mt-8 drop-shadow-2xl">
+                <img
+                  src={item?.imageURL}
+                  alt={item.title}
+                  className="w-full h-full object-contain"
+                />
+              </motion.div>
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md"
@@ -47,7 +49,13 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="w-full flex flex-col items-center justify-center">
+          <img src={NotFound} alt="NotFoundImg" className="h-340" />
+          <p className="text-xl text-headingColor my-4">Items Not Available</p>
+        </div>
+      )}
     </div>
   )
 }
