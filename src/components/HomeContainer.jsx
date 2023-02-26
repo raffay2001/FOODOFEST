@@ -18,7 +18,7 @@ const HomeContainer = () => {
         {/* Main Heading */}
         <p className="text-[3.8rem] md:text-[4.5rem] font-bold tracking-wide text-headingColor leading-none">
           The Fastest <span className="block mt-2 md:mt-3">Delivery in</span>
-          <span className="text-orange-600 block mt-2 md:mt-3">Your City</span>
+          <span className="text-orange-600 block mt-2 md:mt-3">Your City.</span>
         </p>
         {/* Description */}
         <p className="text-base text-textColor text-left md:w-[80%]">
@@ -44,23 +44,24 @@ const HomeContainer = () => {
           className="ml-auto h-100 w-full md:h-650 md:w-auto"
         />
         <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center py-32 md:py-4 gap-6 flex-wrap">
-          {HERO_DATA.map((item) => (
-            <div
-              key={item.id}
-              className="md:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl flex items-center justify-center flex-col"
-            >
-              <img src={item.imageSrc} alt="I1" className="w-20 md:w-40 -mt-10 md:-mt-20" />
-              <p className="text-base md:text-xl font-semibold text-textColor mt-1 md:mt-2">
-                {item.name}
-              </p>
-              <p className="text-[12px] md:text-sm text-lighttextGray font-semibold my-1">
-                {item.desc}
-              </p>
-              <p className="text-sm font-semibold text-headingColor">
-                <span className="text-xs text-red-600">$</span> {item.price}
-              </p>
-            </div>
-          ))}
+          {HERO_DATA &&
+            HERO_DATA.map((item) => (
+              <div
+                key={item.id}
+                className="md:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl flex items-center justify-center flex-col"
+              >
+                <img src={item.imageSrc} alt="I1" className="w-20 md:w-40 -mt-10 md:-mt-20" />
+                <p className="text-base md:text-xl font-semibold text-textColor mt-1 md:mt-2">
+                  {item.name}
+                </p>
+                <p className="text-[12px] md:text-sm text-lighttextGray font-semibold my-1">
+                  {item.desc}
+                </p>
+                <p className="text-sm font-semibold text-headingColor">
+                  <span className="text-xs text-red-600">$</span> {item.price}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import RowContainer from "./RowContainer"
 import { useStateValue } from "../context/StateProvider"
+import MenuContainer from "./MenuContainer"
 
 const MainContainer = () => {
   const [{ foodItems }, dispatch] = useStateValue()
@@ -14,15 +15,15 @@ const MainContainer = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center">
       <HomeContainer />
-      <section className="w-full my-6">
+      <section className="w-full mt-12">
         <div className="w-full flex-col flex md:flex-row items-center justify-between">
-          <p className="text-2xl font-semibold capitalize relative before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all duration-100 ease-in-out">
+          <p className="text-2xl font-semibold capitalize relative before:absolute before:rounded-lg before:content before:w-44 before:h-1 before:-bottom-2 before:right-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all duration-100 ease-in-out">
             Our fresh & healthy fruits.
           </p>
           <div className="hidden md:flex gap-3 items-center">
             <motion.div
               whileTap={{ scale: 0.75 }}
-              className="w-8 h-8 rounded-lg bg-orange-400 hover:bg-orange-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
+              className="w-8 h-8 rounded-lg bg-orange-400 hover:bg-orange-500 cursor-pointer hover:shadow-lg flex items-center justify-center"
               onClick={() =>
                 setScrollValue((prevScrollValue) => {
                   if (scrollValue > -400) {
@@ -37,7 +38,7 @@ const MainContainer = () => {
             </motion.div>
             <motion.div
               whileTap={{ scale: 0.75 }}
-              className="w-8 h-8 rounded-lg bg-orange-400 hover:bg-orange-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
+              className="w-8 h-8 rounded-lg bg-orange-400 hover:bg-orange-500 cursor-pointer hover:shadow-lg flex items-center justify-center"
               onClick={() =>
                 setScrollValue((prevScrollValue) => {
                   if (scrollValue < 400) {
@@ -58,6 +59,7 @@ const MainContainer = () => {
           data={foodItems?.filter((item) => item.category === "fruits")}
         />
       </section>
+      <MenuContainer />
     </div>
   )
 }

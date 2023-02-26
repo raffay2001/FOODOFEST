@@ -173,15 +173,16 @@ const CreateContainer = () => {
             <option value="other" className="bg-white">
               Select Category
             </option>
-            {CATEGORIES.map((categoryItem) => (
-              <option
-                key={categoryItem.id}
-                className="text-base border-0 outline-none capitalize bg-white text-headingColor"
-                value={categoryItem.urlParamName}
-              >
-                {categoryItem.name}
-              </option>
-            ))}
+            {CATEGORIES &&
+              CATEGORIES.map((categoryItem) => (
+                <option
+                  key={categoryItem.id}
+                  className="text-base border-0 outline-none capitalize bg-white text-headingColor"
+                  value={categoryItem.urlParamName}
+                >
+                  {categoryItem.name}
+                </option>
+              ))}
           </select>
         </div>
         {/* Image Input */}
