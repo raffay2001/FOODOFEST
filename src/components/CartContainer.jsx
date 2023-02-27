@@ -3,16 +3,29 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md"
 import { motion } from "framer-motion"
 import { RiRefreshFill } from "react-icons/ri"
 import { BiMinus, BiPlus } from "react-icons/bi"
+import { useStateValue } from "../context/StateProvider"
+import { actionType } from "../context/reducer"
 
 const CartContainer = () => {
+  const [{ cartShow }, dispatch] = useStateValue()
+  const closeCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
+    })
+  }
   return (
-    <div className="fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[101]">
+    <motion.div
+      className="fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[101]"
+      initial={{ opacity: 0, x: 200 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 200 }}
+    >
       <div className="w-full flex items-center justify-between p-4 cursor-pointer">
-        <motion.div whileTap={{ scale: 0.75 }}>
+        <motion.div whileTap={{ scale: 0.75 }} onClick={closeCart}>
           <MdOutlineKeyboardBackspace className="text-textColor text-3xl" />
         </motion.div>
         <p className="text-textColor text-lg font-semibold">Cart</p>
-
         <motion.p
           whileTap={{ scale: 0.75 }}
           className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
@@ -72,13 +85,13 @@ const CartContainer = () => {
           <motion.button
             whileTap={{ scale: 0.8 }}
             type="button"
-            className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg transition-all duration-150 ease-out"
+            className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
           >
             Check Out
           </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
