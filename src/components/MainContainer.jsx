@@ -16,9 +16,9 @@ const MainContainer = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center">
       <HomeContainer />
-      <section className="w-full mt-12">
+      <section className="w-full mt-6">
         <div className="w-full flex-col flex md:flex-row items-center justify-between">
-          <p className="text-2xl font-semibold capitalize relative before:absolute before:rounded-lg before:content before:w-44 before:h-1 before:-bottom-2 before:right-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all duration-100 ease-in-out">
+          <p className="text-2xl font-semibold capitalize relative before:absolute before:rounded-lg before:content before:w-44 before:h-1 before:-bottom-2 before:right-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all duration-100 ease-in-out mb-4 md:mb-0">
             Our fresh & healthy fruits.
           </p>
           <div className="hidden md:flex gap-3 items-center">
