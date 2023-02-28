@@ -90,7 +90,7 @@ export const Footer = () => {
             <p className="text-gray-600 text-[1.1rem] md:text-xl">
               <div className="flex items-center space-x-1">
                 <span className="block text-2xl">&copy;</span>{" "}
-                <span className="block">2023 DoctrEx All Rights Reserved.</span>
+                <span className="block">2023 FoodoFest All Rights Reserved.</span>
               </div>
             </p>
           </div>
