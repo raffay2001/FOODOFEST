@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion"
 import { useStateValue } from "./context/StateProvider"
 import { getAllFoodItems } from "./utils/firebaseFunctions"
 import { actionType } from "./context/reducer"
+import { Footer } from "./components/Footer"
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue()
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/createItem" element={<CreateContainer />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </AnimatePresence>
   )
